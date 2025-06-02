@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-8 offset-md-2">
+    <h1 class="mb-4">Editar Veículo #{{ veiculo_id }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="row g-3">
+            <!-- Coluna Esquerda - Informações Básicas -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        Informações Básicas
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Agência</label>
+                            {{ form.agencia }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            {{ form.categoria }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Placa</label>
+                            {{ form.placa }}
+                            <div class="form-text">Formato: AAA-0000 ou AAA0A00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita - Detalhes Técnicos -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        Especificações Técnicas
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Marca</label>
+                            {{ form.marca }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Modelo</label>
+                            {{ form.modelo }}
+                        </div>
+                        
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <label class="form-label">Ano</label>
+                                {{ form.ano }}
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Cor</label>
+                                {{ form.cor }}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Combustível</label>
+                            {{ form.tipo_combustivel }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Quilometragem</label>
+                            <div class="input-group">
+                                {{ form.quilometragem }}
+                                <span class="input-group-text">km</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check form-switch">
+                            {{ form.disponivel }}
+                            <label class="form-check-label">Disponível para locação</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-md-end gap-2">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Salvar Alterações
+            </button>
+            <a href="{% url 'lista_veiculos' %}" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .form-check-input {
+        width: 3em;
+        height: 1.5em;
+    }
+    .input-group-text {
+        background-color: #e9ecef;
+        border-color: #ced4da;
+    }
+    .form-text {
+        font-size: 0.85em;
+        color: #6c757d!important;
+    }
+    .card-header {
+        font-weight: 500;
+    }
+</style>
+
+{% endblock %}

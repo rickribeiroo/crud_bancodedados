@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-8 offset-md-2">
+    <h1 class="mb-4">Novo Contrato de Aluguel</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Dados do Contrato
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Cliente</label>
+                            {{ form.cliente }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Data de Retirada</label>
+                            {{ form.data_retirada }}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Veículo</label>
+                            {{ form.veiculo }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Data Devolução Prevista</label>
+                            {{ form.data_dev_prev }}
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle"></i> O valor da diária será automático conforme a categoria do veículo selecionado
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-6">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h5 class="card-title">Resumo Financeiro</h5>
+                                    <p class="card-text">
+                                        Diária: <span class="text-muted">(será calculada após selecionar o veículo e as datas)</span><br>
+                                        Total estimado: <span class="text-muted">(calculado automaticamente)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            {{ form.status }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-file-earmark-check"></i> Registrar Contrato
+            </button>
+            <a href="{% url 'lista_alugueis' %}" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .card-header {
+        font-weight: 500;
+    }
+    .input-group-text {
+        background-color: #e9ecef;
+        border-color: #ced4da;
+    }
+</style>
+
+
+{% endblock %}

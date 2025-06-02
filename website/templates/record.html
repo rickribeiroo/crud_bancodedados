@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="card">
+    <div class="card-header">
+      {{ obj_record.name }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">
+            <strong>Contato: </strong>{{ obj_record.phone }}<br/><br/>
+            <strong>Endereço: </strong>{{ obj_record.zipcode }}
+                                        {{ obj_record.road }}
+                                        {{ obj_record.city }}
+                                        {{ obj_record.state }}<br/><br/>
+            <strong>ID: </strong>{{ obj_record.id }}<br/><br/>
+        </h5>
+    </div>
+</div>
+
+<br/><br/>
+<a href="{% url 'home' %}" class="btn btn-secondary">Voltar</a>
+<a href="{% url 'delete_record' obj_record.id %}" class="btn btn-danger">Deletar</a>
+<a href="{% url 'update_record' obj_record.id %}" class="btn btn-secondary">Alterar Registro</a>
+
+
+{% endblock %}

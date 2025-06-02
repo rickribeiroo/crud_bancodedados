@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Frota de Veículos</h1>
+        <a href="{% url 'add_veiculo' %}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Novo Veículo
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Placa</th>
+                    <th>Veículo</th>
+                    <th>Agência</th>
+                    <th>Categoria</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for veiculo in veiculos %}
+                <tr>
+                    <td class="text-uppercase">{{ veiculo.placa }}</td>
+                    <td>
+                        <div class="fw-bold">{{ veiculo.marca }} {{ veiculo.modelo }}</div>
+                        <small class="text-muted">{{ veiculo.ano|default:"-" }}</small>
+                    </td>
+                    <td>{{ veiculo.agencia_nome }}</td>  <!-- Nome da Agência -->
+                    <td>{{ veiculo.categoria_nome }}</td>  <!-- Nome da Categoria -->
+                    <td>
+                        {% if veiculo.disponivel %}
+                            <span class="badge bg-success">Disponível</span>
+                        {% else %}
+                            <span class="badge bg-danger">Indisponível</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <div class="btn-group">
+
+                                <a href="{% url 'edit_veiculo' veiculo.id %}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil me-1"></i>Editar
+                                </a>
+                            
+                            <form method="POST" action="{% url 'delete_veiculo' veiculo.id %}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('Tem certeza que deseja excluir este veiculo?')">
+                                    <i class="bi bi-trash me-1"></i>Deletar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Nenhum veículo cadastrado</td>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table thead th {
+        background-color: #2c3e50;
+        color: white;
+    }
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    .text-muted {
+        font-size: 0.9em;
+    }
+    /* Estilos específicos para esta página */
+    .delete-form {
+        display: inline-block;
+    }
+    .delete-form button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+</style>
+
+{% endblock %}

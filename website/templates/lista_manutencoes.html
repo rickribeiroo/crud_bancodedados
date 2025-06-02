@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Histórico de Manutenções</h1>
+        <a href="{% url 'add_manutencao' %}" class="btn btn-success">
+            <i class="bi bi-tools"></i> Nova Manutenção
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Data Entrada</th>
+                    <th>Veículo</th>
+                    <th>Problema</th>
+                    <th>Custo</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manutencao in manutencoes %}
+                <tr>
+                    <td>{{ manutencao.data_entrada|date:"d/m/Y" }}</td>
+                    <td>{{ manutencao.placa }}</td>
+                    <td>{{ manutencao.tipo_problema|truncatechars:30 }}</td>
+                    <td>R$ {{ manutencao.custo|floatformat:2 }}</td>
+                    <td>
+                        {% if manutencao.status == 'Concluída' %}
+                            <span class="badge bg-success">{{ manutencao.status }}</span>
+                        {% elif manutencao.status == 'Cancelada' %}
+                            <span class="badge bg-danger">{{ manutencao.status }}</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">{{ manutencao.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <div class="btn-group">
+                            <a href="{% url 'edit_manutencao' manutencao.id %}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil me-1"></i>Editar
+                            </a>
+                            
+                            <form method="POST" action="{% url 'delete_manutencao' manutencao.id %}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('Tem certeza que deseja excluir esta manutenção?')">
+                                    <i class="bi bi-trash me-1"></i>Deletar
+                                </button>
+                            </form>
+                            
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Nenhuma manutenção registrada</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+    .table thead th {
+        background-color: #2c3e50;
+        color: white;
+    }
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    .text-muted {
+        font-size: 0.9em;
+    }
+    /* Estilos específicos para esta página */
+    .delete-form {
+        display: inline-block;
+    }
+    .delete-form button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+</style>
+{% endblock %}

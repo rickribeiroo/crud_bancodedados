@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-6 offset-md-3">
+    <h1 class="mb-4">Registrar Nova Manutenção</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Veículo</label>
+                    {{ form.veiculo }}
+                </div>
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Data de Entrada</label>
+                        {{ form.data_entrada }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Data de Saída</label>
+                        {{ form.data_saida }}
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    {{ form.status }}
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Custo (R$)</label>
+                    {{ form.custo }}
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Descrição do Problema</label>
+                    {{ form.tipo_problema }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between">
+            <a href="{% url 'lista_manutencoes' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-lg"></i> Salvar
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .card {
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 0.5rem;
+    }
+    .form-label {
+        font-weight: 500;
+    }
+</style>
+
+{% endblock %}

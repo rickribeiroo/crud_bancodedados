@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Clientes Cadastrados</h1>
+        <a href="{% url 'add_cliente' %}" class="btn btn-success">
+            <i class="bi bi-person-plus"></i> Novo Cliente
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>CPF</th>
+                    <th>Cliente</th>
+                    <th>Contato</th>
+                    <th>Localização</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td class="text-monospace">{{ cliente.cpf|slice:":3" }}.{{ cliente.cpf|slice:"3:6" }}.{{ cliente.cpf|slice:"6:9" }}-{{ cliente.cpf|slice:"9:" }}</td>
+                    <td>
+                        <div class="fw-bold">{{ cliente.nome }}</div>
+                        <small class="text-muted">CNH: {{ cliente.cnh }}</small>
+                    </td>
+                    <td>
+                        <div>{{ cliente.email }}</div>
+                        <small class="text-muted">{{ cliente.telefone|default:"Sem telefone" }}</small>
+                    </td>
+                    <td>
+                        <div>{{ cliente.endereco.cidade }}/{{ cliente.endereco.estado }}</div>
+                        <small class="text-muted">
+                            {{ cliente.endereco.rua }} 
+                            {% if cliente.endereco.complemento %}
+                                <br>{{ cliente.endereco.complemento }}
+                            {% endif %}
+                        </small>
+                    </td>
+                    <td class="text-end">
+                        <div class="btn-group" role="group">
+                           
+                                <a href="{% url 'edit_cliente' cliente.id %}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil me-1"></i>Editar
+                                </a>
+                            
+                            <form method="POST" action="{% url 'delete_cliente' cliente.id %}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('Tem certeza que deseja excluir este cliente?')">
+                                    <i class="bi bi-trash me-1"></i>Deletar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Nenhum cliente cadastrado</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table thead th {
+        background-color: #2c3e50;
+        color: white;
+    }
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    .text-muted {
+        font-size: 0.9em;
+    }
+    /* Estilos específicos para esta página */
+    .delete-form {
+        display: inline-block;
+    }
+    .delete-form button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+</style>
+
+{% endblock %}

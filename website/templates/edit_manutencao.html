@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-8 offset-md-2">
+    <h1 class="mb-4">Editar Manutenção #{{ manutencao_id }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Dados da Manutenção
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <!-- Coluna Esquerda -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Veículo</label>
+                            {{ form.veiculo }}
+                            <div class="form-text">Selecione o veículo em manutenção</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Data de Entrada</label>
+                            {{ form.data_entrada }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Data de Saída</label>
+                            {{ form.data_saida }}
+                            <div class="form-text">Deixe em branco se ainda em aberto</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Coluna Direita -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            {{ form.status }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Custo Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text">R$</span>
+                                {{ form.custo }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Descrição do Problema</label>
+                    {{ form.tipo_problema }}
+                    <div class="form-text">Detalhe o problema encontrado e serviços realizados</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Salvar Alterações
+            </button>
+            <a href="{% url 'lista_manutencoes' %}" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .card-header {
+        font-weight: 500;
+    }
+    .form-label {
+        font-weight: 500;
+        color: #444;
+    }
+    .input-group-text {
+        background-color: #e9ecef;
+        border-color: #ced4da;
+    }
+    .form-text {
+        font-size: 0.85em;
+        color: #6c757d!important;
+    }
+    textarea {
+        min-height: 120px;
+    }
+</style>
+
+{% endblock %}

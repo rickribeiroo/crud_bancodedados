@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-6 offset-md-3">
+    <h1 class="mb-4">Nova Categoria</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Nome da Categoria</label>
+            {{ form.nome }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preço Diário Base</label>
+            <div class="input-group">
+                <span class="input-group-text">R$</span>
+                {{ form.preco_diaria_base }}
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Descrição</label>
+            {{ form.descricao }}
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Salvar
+            </button>
+            <a href="{% url 'lista_categorias' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .input-group-text {
+        background-color: #e9ecef;
+        border-color: #ced4da;
+    }
+</style>
+
+{% endblock %}

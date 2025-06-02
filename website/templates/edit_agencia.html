@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-6 offset-md-3">
+    <h1 class="mb-4">Editar Agência {{ agencia_id }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="id_nome" class="form-label">Nome da Agência</label>
+            {{ form.nome }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_telefone" class="form-label">Telefone</label>
+            {{ form.telefone }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_cep" class="form-label">CEP</label>
+            {{ form.cep }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_rua" class="form-label">Rua</label>
+            {{ form.rua }}
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="id_cidade" class="form-label">Cidade</label>
+                {{ form.cidade }}
+            </div>
+            <div class="col-md-3">
+                <label for="id_estado" class="form-label">Estado</label>
+                {{ form.estado }}
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="id_complemento" class="form-label">Complemento</label>
+            {{ form.complemento }}
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Salvar Alterações
+            </button>
+            <a href="{% url 'lista_agencias' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .form-control:disabled {
+        background-color: #e9ecef;
+        opacity: 1;
+    }
+    .btn-primary {
+        min-width: 150px;
+    }
+</style>
+
+{% endblock %}

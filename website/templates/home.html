@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <!-- Sidebar (Botões) -->
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Menu</h5>
+      </div>
+      <div class="card-body">
+        <div class="list-group">
+          
+          <a href="{% url 'home' %}" class="list-group-item list-group-item-action active">Home</a>
+          <a href="{% url 'lista_agencias' %}" class="list-group-item list-group-item-action">Agências</a>
+          <a href="{% url 'lista_clientes' %}" class="list-group-item list-group-item-action">Clientes</a>
+          <a href="{% url 'lista_categorias' %}" class="list-group-item list-group-item-action">Categorias</a>
+          <a href="{% url 'lista_veiculos' %}" class="list-group-item list-group-item-action">Veículos</a>
+          <a href="{% url 'lista_manutencoes' %}" class="list-group-item list-group-item-action">Manutenções</a>
+          <a href="{% url 'lista_alugueis' %}" class="list-group-item list-group-item-action"></i>Aluguéis</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="col-md-9">
+    <h1>Selecione o DB ao lado</h1>
+
+
+  </div>
+</div>
+
+{% endblock %}
